@@ -1,19 +1,14 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { heroConfig } from '@/config';
 import { AnimatedButton } from '@/components/AnimatedButton';
 import { ArrowRight, Activity, Shield, Clock } from 'lucide-react';
-
-const boxSize = 450;
-const halfBox = boxSize / 2;
 
 interface HeroProps {
   onBookClick?: () => void;
 }
 
 export function Hero({ onBookClick }: HeroProps) {
-  if (!heroConfig.name && heroConfig.roles.length === 0) return null;
-
   const [isLoaded, setIsLoaded] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,6 +19,8 @@ export function Hero({ onBookClick }: HeroProps) {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
+
+  if (!heroConfig.name && heroConfig.roles.length === 0) return null;
 
   return (
     <section
