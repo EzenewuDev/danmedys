@@ -10,17 +10,20 @@ export function PageOverlay({ isVisible }: PageOverlayProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: number | undefined;
     if (isVisible) {
-      interval = setInterval(() => {
+      const timer = setTimeout(() => setProgress(0), 0);
+      interval = window.setInterval(() => {
         setProgress((prev) => (prev < 90 ? prev + Math.random() * 15 : prev));
       }, 200);
+      return () => {
+        clearTimeout(timer);
+        if (interval) window.clearInterval(interval);
+      };
     } else {
-      setProgress(100);
+      const timer = setTimeout(() => setProgress(100), 0);
+      return () => clearTimeout(timer);
     }
-    return () => {
-      if (interval) clearInterval(interval);
-    };
   }, [isVisible]);
 
   return (
