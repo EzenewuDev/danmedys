@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { Navigation } from '@/components/Navigation';
 import { PageOverlay } from '@/components/PageOverlay';
 import { BackToTop } from '@/components/BackToTop';
@@ -61,8 +61,18 @@ function HomePage() {
   );
 }
 
-// Main App Component
+// App Wrapper with Router
 function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+// Main App Content with Hooks
+function AppContent() {
+  const navigate = useNavigate();
   const { showOverlay } = usePageLoad(500);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     // Check if user is authenticated
@@ -75,45 +85,45 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
     localStorage.setItem('danmedy_auth', 'true');
+    navigate('/dashboard');
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('danmedy_auth');
+    navigate('/login');
   };
 
   const handleSignUp = () => {
-    // After signup, redirect to login
-    window.location.href = '/login';
+    // After signup, redirect to login using internal router to avoid 404
+    navigate('/login');
   };
 
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
-        {/* Page Load Overlay */}
-        <PageOverlay isVisible={showOverlay} />
-        
-        {/* Navigation */}
-        <Navigation isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-        
-        {/* Routes */}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={
-            isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />
-          } />
-          <Route path="/signup" element={
-            isAuthenticated ? <Navigate to="/dashboard" /> : <SignUp onSignUp={handleSignUp} />
-          } />
-          <Route path="/dashboard" element={
-            isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" />
-          } />
-        </Routes>
-        
-        {/* Back to Top Button */}
-        <BackToTop />
-      </div>
-    </Router>
+    <div className="min-h-screen bg-white">
+      {/* Page Load Overlay */}
+      <PageOverlay isVisible={showOverlay} />
+      
+      {/* Navigation */}
+      <Navigation isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+      
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={
+          isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />
+        } />
+        <Route path="/signup" element={
+          isAuthenticated ? <Navigate to="/dashboard" /> : <SignUp onSignUp={handleSignUp} />
+        } />
+        <Route path="/dashboard" element={
+          isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" />
+        } />
+      </Routes>
+      
+      {/* Back to Top Button */}
+      <BackToTop />
+    </div>
   );
 }
 
