@@ -31,28 +31,28 @@ export function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1e3f] via-[#0f2b5b] to-[#1DA1F2] flex items-center justify-center p-4">
+    <div className="min-h-[100dvh] bg-gradient-to-br from-[#0a1e3f] via-[#0f2b5b] to-[#1DA1F2] flex flex-col items-center justify-center p-4 sm:p-8">
       {/* Back button */}
       <Link
         to="/"
-        className="absolute top-6 left-6 text-white/80 hover:text-white flex items-center gap-2 transition-colors"
+        className="fixed top-6 left-6 text-white/80 hover:text-white flex items-center gap-2 transition-colors z-50 bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full text-sm"
       >
-        <ArrowLeft className="w-5 h-5" />
-        Back to Home
+        <ArrowLeft className="w-4 h-4" />
+        Back
       </Link>
 
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md py-8">
         {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
-            <Activity className="w-8 h-8 text-[#1DA1F2]" />
+        <div className="text-center mb-6">
+          <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+            <Activity className="w-7 h-7 text-[#1DA1F2]" />
           </div>
-          <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
-          <p className="text-white/70 mt-2">Sign in to access your health dashboard</p>
+          <h1 className="text-3xl font-bold text-white tracking-tight">Welcome Back</h1>
+          <p className="text-white/70 mt-1.5 text-sm">Sign in to access your health dashboard</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl p-8 shadow-2xl">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl">
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
               {error}

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { AnimatedButton } from './AnimatedButton';
 import { navigationConfig } from '@/config';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, X } from 'lucide-react';
 
 interface NavigationProps {
   isAuthenticated?: boolean;
@@ -196,11 +196,22 @@ export function Navigation({ isAuthenticated = false, onLogout }: NavigationProp
       {navigationConfig.links.length > 0 && (
         <div
           className={cn(
-            'fixed inset-0 z-40 bg-white transition-all duration-500 ease-out-cubic lg:hidden',
+            'fixed inset-0 z-40 bg-white transition-all duration-500 ease-out-cubic lg:hidden flex flex-col',
             isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
           )}
         >
-          <div className="flex flex-col items-center justify-center h-full gap-8">
+          {/* Header area in mobile menu for the X button */}
+          <div className="w-full px-6 py-4 flex justify-end">
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="p-2 text-[#0a1e3f] hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-8 h-8" />
+            </button>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center gap-8 pb-12 overflow-y-auto">
             {navigationConfig.links.map((link, index) => (
               <a
                 key={link.label}
@@ -219,31 +230,35 @@ export function Navigation({ isAuthenticated = false, onLogout }: NavigationProp
             ))}
             
             {/* Mobile Auth Buttons */}
-            <div className="flex flex-col gap-4 mt-4">
+            <div className="flex flex-col gap-4 mt-4 w-full px-12 max-w-sm">
               <AnimatedButton
                 onClick={handleBooking}
                 variant="primary"
                 size="lg"
+                className="w-full justify-center"
               >
                 {navigationConfig.contactLabel}
               </AnimatedButton>
 
               {isAuthenticated ? (
                 <>
-                  <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                    <AnimatedButton variant="secondary" size="lg">
+                  <Link to="/dashboard" onClick={() => setIsMenuOpen(false)} className="w-full">
+                    <AnimatedButton variant="secondary" size="lg" className="w-full justify-center">
                       <User className="w-5 h-5 mr-2" />
                       Dashboard
                     </AnimatedButton>
                   </Link>
-                  <button onClick={() => { onLogout?.(); setIsMenuOpen(false); }}>
-                    <span className="text-[#0a1e3f]/70">Logout</span>
+                  <button 
+                    onClick={() => { onLogout?.(); setIsMenuOpen(false); }}
+                    className="py-2 text-[#0a1e3f]/70 font-medium"
+                  >
+                    Logout
                   </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                    <AnimatedButton variant="outline" size="lg">
+                  <Link to="/login" onClick={() => setIsMenuOpen(false)} className="w-full">
+                    <AnimatedButton variant="outline" size="lg" className="w-full justify-center">
                       Login
                     </AnimatedButton>
                   </Link>

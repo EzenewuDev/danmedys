@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { heroConfig } from '@/config';
 import { AnimatedButton } from '@/components/AnimatedButton';
-import { ArrowRight, Activity, Shield, Clock } from 'lucide-react';
+import { Activity, Shield, Clock } from 'lucide-react';
 
 interface HeroProps {
   onBookClick?: () => void;
@@ -75,35 +75,35 @@ export function Hero({ onBookClick }: HeroProps) {
       )}
 
       {/* Content Container */}
-      <div className="relative z-30 flex flex-col items-start justify-center min-h-screen px-6 lg:px-16 pointer-events-none">
-        <div className="max-w-2xl">
+      <div className="relative z-30 flex flex-col items-start justify-center min-h-screen px-6 lg:px-16 pointer-events-none pb-20 pt-32 lg:pt-0">
+        <div className="max-w-2xl w-full">
           {/* Badge */}
           <div
             className={cn(
-              'inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 transition-all duration-[1200ms] ease-out-quart',
+              'inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-8 transition-all duration-[1200ms] ease-out-quart border border-white/10',
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             )}
             style={{ transitionDelay: '400ms' }}
           >
             <Activity className="w-4 h-4 text-[#1DA1F2]" />
-            <span className="text-sm text-white/90 font-medium">{heroConfig.badge}</span>
+            <span className="text-sm text-white/90 font-medium tracking-wide">{heroConfig.badge}</span>
           </div>
 
           {/* Main Heading */}
           <h1
             className={cn(
-              'text-[clamp(2.5rem,6vw,5rem)] font-bold text-white tracking-tight leading-[1.1] mb-6 transition-all duration-[1200ms] ease-out-quart',
+              'text-[clamp(2.2rem,6vw,5rem)] font-bold text-white tracking-tight leading-[1.1] mb-8 transition-all duration-[1200ms] ease-out-quart',
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             )}
             style={{ transitionDelay: '500ms' }}
           >
-            {heroConfig.heading}
+            {heroConfig.name}
           </h1>
 
-          {/* Subheading */}
+          {/* Description */}
           <p
             className={cn(
-              'text-lg md:text-xl text-white/80 mb-8 max-w-xl transition-all duration-[1200ms] ease-out-quart',
+              'text-lg lg:text-xl text-white/80 max-w-xl mb-10 leading-relaxed transition-all duration-[1200ms] ease-out-quart',
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             )}
             style={{ transitionDelay: '600ms' }}
@@ -111,59 +111,68 @@ export function Hero({ onBookClick }: HeroProps) {
             {heroConfig.subheading}
           </p>
 
-          {/* CTA Buttons */}
+          {/* Action Buttons */}
           <div
             className={cn(
-              'flex flex-wrap gap-4 mb-12 transition-all duration-[1200ms] ease-out-quart pointer-events-auto',
+              'flex flex-col sm:flex-row items-stretch sm:items-center gap-4 transition-all duration-[1200ms] ease-out-quart pointer-events-auto',
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             )}
             style={{ transitionDelay: '700ms' }}
           >
-            <AnimatedButton onClick={onBookClick} variant="primary" size="lg">
-              {heroConfig.cta}
-              <ArrowRight className="w-5 h-5 ml-2" />
+            <AnimatedButton
+              onClick={onBookClick}
+              variant="primary"
+              size="lg"
+              className="px-10 py-5 rounded-2xl shadow-xl shadow-[#1DA1F2]/20"
+            >
+              Book Appointment
             </AnimatedButton>
             <a href="#services">
-              <AnimatedButton variant="outline-white" size="lg">
+              <AnimatedButton
+                variant="outline-white"
+                size="lg"
+                className="px-10 py-5 rounded-2xl"
+                showIcon={false}
+              >
                 Our Services
               </AnimatedButton>
             </a>
           </div>
+        </div>
 
-          {/* Stats */}
-          <div
-            className={cn(
-              'flex flex-wrap gap-8 transition-all duration-[1200ms] ease-out-quart',
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            )}
-            style={{ transitionDelay: '800ms' }}
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#1DA1F2]/20 rounded-xl flex items-center justify-center">
-                <Shield className="w-6 h-6 text-[#1DA1F2]" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">50+</p>
-                <p className="text-sm text-white/70">Expert Doctors</p>
-              </div>
+        {/* Hero Stats */}
+        <div
+          className={cn(
+            'flex flex-wrap items-center gap-8 lg:gap-12 mt-16 transition-all duration-[1200ms] ease-out-quart',
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          )}
+          style={{ transitionDelay: '800ms' }}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/10">
+              <Shield className="w-5 h-5 text-[#1DA1F2]" />
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#1DA1F2]/20 rounded-xl flex items-center justify-center">
-                <Clock className="w-6 h-6 text-[#1DA1F2]" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">24/7</p>
-                <p className="text-sm text-white/70">Available</p>
-              </div>
+            <div>
+              <p className="text-2xl font-bold text-white leading-none mb-1">50+</p>
+              <p className="text-xs text-white/50 uppercase tracking-widest font-medium">Expert Doctors</p>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#1DA1F2]/20 rounded-xl flex items-center justify-center">
-                <Activity className="w-6 h-6 text-[#1DA1F2]" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-white">100k+</p>
-                <p className="text-sm text-white/70">Patients</p>
-              </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/10">
+              <Clock className="w-5 h-5 text-[#1DA1F2]" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white leading-none mb-1">24/7</p>
+              <p className="text-xs text-white/50 uppercase tracking-widest font-medium">Available</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/10">
+              <Activity className="w-5 h-5 text-[#1DA1F2]" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white leading-none mb-1">100k+</p>
+              <p className="text-xs text-white/50 uppercase tracking-widest font-medium">Patients</p>
             </div>
           </div>
         </div>
