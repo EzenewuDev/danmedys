@@ -50,12 +50,13 @@ export function Hero({ onBookClick }: HeroProps) {
       {heroConfig.roles[0] && (
         <div
           className={cn(
-            'absolute left-8 lg:left-16 top-1/2 -translate-y-1/2 z-30 transition-all duration-[1200ms] ease-out-quart',
+            'absolute left-6 lg:left-12 top-[18%] lg:top-1/2 -translate-y-1/2 z-30 transition-all duration-[1200ms] ease-out-quart',
+            'lg:-rotate-90 lg:origin-left',
             isLoaded ? 'opacity-100' : 'opacity-0'
           )}
           style={{ transitionDelay: '800ms' }}
         >
-          <span className="text-xs font-geist-mono uppercase tracking-[0.3em] text-white/70">
+          <span className="text-[10px] lg:text-xs font-geist-mono uppercase tracking-[0.4em] text-white/40 whitespace-nowrap">
             {heroConfig.roles[0]}
           </span>
         </div>
@@ -63,12 +64,13 @@ export function Hero({ onBookClick }: HeroProps) {
       {heroConfig.roles[1] && (
         <div
           className={cn(
-            'absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 z-30 transition-all duration-[1200ms] ease-out-quart',
+            'absolute right-6 lg:right-12 top-[18%] lg:top-1/2 -translate-y-1/2 z-30 transition-all duration-[1200ms] ease-out-quart',
+            'lg:rotate-90 lg:origin-right',
             isLoaded ? 'opacity-100' : 'opacity-0'
           )}
           style={{ transitionDelay: '900ms' }}
         >
-          <span className="text-xs font-geist-mono uppercase tracking-[0.3em] text-white/70">
+          <span className="text-[10px] lg:text-xs font-geist-mono uppercase tracking-[0.4em] text-white/40 whitespace-nowrap">
             {heroConfig.roles[1]}
           </span>
         </div>
