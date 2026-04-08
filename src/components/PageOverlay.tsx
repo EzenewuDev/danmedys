@@ -10,15 +10,15 @@ export function PageOverlay({ isVisible }: PageOverlayProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let interval: number | undefined;
+    let interval: ReturnType<typeof setInterval> | undefined;
     if (isVisible) {
       const timer = setTimeout(() => setProgress(0), 0);
-      interval = window.setInterval(() => {
+      interval = setInterval(() => {
         setProgress((prev) => (prev < 90 ? prev + Math.random() * 15 : prev));
       }, 200);
       return () => {
         clearTimeout(timer);
-        if (interval) window.clearInterval(interval);
+        if (interval) clearInterval(interval);
       };
     } else {
       const timer = setTimeout(() => setProgress(100), 0);
